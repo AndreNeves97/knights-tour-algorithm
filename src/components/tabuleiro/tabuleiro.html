@@ -1,0 +1,31 @@
+	
+<ion-grid #tabuleiro style="margin: auto" [style.width]="containerSize+'px'" [style.padding]="0"> 
+
+	<div style="
+	    background: black;
+	    position: absolute;
+	    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+	"
+	[style.width]="containerSize+'px'"
+	[style.height]="containerSize+'px'"
+	  [style.z-index]="panelZIndex"
+	 [style.opacity]="panelOpacity"
+	 [style.display]="panelDisplay"
+	
+	></div>
+	
+  <peca [velocidade]="velocidade" [x]="posicaoPeca.x" [y]="posicaoPeca.y" [blockSize]="blockSize" [tabuleiroOffsetTop]="offsetTop" [tabuleiroOffsetLeft]="offsetLeft" [tamanhoTabuleiro]="containerSize"></peca>
+	    
+  <mira [show]="miraEmUso==0" [x]="posicaoMira0.x" [y]="posicaoMira0.y" [blockSize]="blockSize" [tabuleiroOffsetTop]="offsetTop" [tabuleiroOffsetLeft]="offsetLeft" [tamanhoTabuleiro]="containerSize"></mira>
+  <mira [show]="miraEmUso==1" [x]="posicaoMira1.x" [y]="posicaoMira1.y" [blockSize]="blockSize" [tabuleiroOffsetTop]="offsetTop" [tabuleiroOffsetLeft]="offsetLeft" [tamanhoTabuleiro]="containerSize"></mira>
+	    
+  <ion-row *ngFor="let linha of linhas">
+	<casa 
+			*ngFor="let casa of linha.casas" 
+			(click)="cliqueCasa(casa)" 
+			[escuro]="casa.escuro" 
+			[destacada]="casa.destacada"
+			[indice]="casa.indice"
+			 [size]="blockSize" ></casa>
+  </ion-row>
+</ion-grid>

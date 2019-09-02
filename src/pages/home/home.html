@@ -1,0 +1,165 @@
+<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Home</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+	
+	
+	<ion-grid>
+	  <ion-row>
+	    <ion-col col-12 col-md-6>
+	    	
+			<div class="status">
+	    		<ion-card>
+				  <ion-card-content *ngIf="status=='inicial'">
+				  
+				    <ion-card-title>
+				      Passeio do Cavalo (Knight’s Tour) - Backtracking
+				      </ion-card-title>
+				      
+				      Clique sobre alguma casa para mover o cavalo
+				  </ion-card-content>
+				  
+				  <ion-card-content *ngIf="status=='nao-solucionado'">
+				    <ion-card-title>
+				      Solução não encontrada
+				      </ion-card-title>
+				    <ion-grid>
+					  <ion-row>
+					    <ion-col col-12>
+					    
+					    	 <p>Profundidade alcançada na árvore de possibilidades até
+					    	  que seja necessário o primeiro retrocesso: {{solucaoEncontrada.profundidadeAtePrimeiroRetrocesso}}
+					    	  </p>
+						</ion-col>
+
+					  </ion-row>
+					  <ion-row>
+					    <ion-col col-12>
+					    	
+					    	 <p>
+					    	Número de possibilidades até esse momento: {{solucaoEncontrada.possibilidadesAtePrimeiroRetrocesso}}
+					    	  </p>
+						</ion-col>
+					  </ion-row>
+					  
+					  <br>
+					  <ion-row>
+					  	<p><button ion-button block color="light"  (click)="visualizarPrimeiraTentativa()">Visualizar primeira tentativa</button></p>
+					
+					  </ion-row>
+					</ion-grid>
+					
+				  </ion-card-content>
+				  
+				  
+				  <ion-card-content *ngIf="status=='solucionado'">
+				  
+				    <ion-card-title>
+				      Solução encontrada
+				      </ion-card-title>
+				    <ion-grid>
+					  <ion-row>
+					    <ion-col col-12>
+					    
+					    	 <p>Profundidade alcançada na árvore de possibilidades até
+					    	  que seja necessário o primeiro retrocesso: {{solucaoEncontrada.profundidadeAtePrimeiroRetrocesso}}
+					    	  </p>
+						</ion-col>
+
+					  </ion-row>
+					  <ion-row>
+					    <ion-col col-12>
+					    	
+					    	 <p>
+					    	Número de possibilidades até esse momento: {{solucaoEncontrada.possibilidadesAtePrimeiroRetrocesso}}
+					    	  </p>
+						</ion-col>
+					  </ion-row>
+					  
+					  <br>
+					  <ion-row>
+					  	<p><button ion-button color="light"  (click)="visualizarPrimeiraTentativa()">Visualizar primeira tentativa</button></p>
+					
+					  </ion-row>
+					</ion-grid>
+					
+				  </ion-card-content>
+				  
+				  
+				</ion-card>
+	    	</div>
+	    	
+	    	
+			<div class="options">
+			  <ion-item>
+			    <ion-label >Tamanho do tabuleiro</ion-label>
+			    
+			    <ion-select interface="popover" [(ngModel)]="tamanhoTabuleiro" >
+			      <ion-option *ngFor="let opcao of opcoesTamanhoTabuleiro" value="{{opcao.valor}}">{{opcao.nome}}</ion-option>
+			    </ion-select>=
+			  </ion-item>
+				  
+			  <div padding>
+			  
+			  	<ion-grid>
+			  		<ion-row>
+			  			<ion-col col-12 col-md-4>
+						  	 <p>
+							  	<button [disabled]="loading" ion-button block (click)="calcular()">
+							  		
+							  		<ion-spinner *ngIf="loading" class="button"></ion-spinner> 
+							  		
+							  		Calcular</button>
+						  	  </p>
+			  			</ion-col>
+			  			
+			  			<ion-col col-12 col-md-4>
+			  				<p><button  color="light" [disabled]="!mostrandoSolucao" ion-button block (click)="alterarEstadoPausa()">{{pausarLabel}}</button></p>
+			  			</ion-col>
+			  			
+			  			<ion-col col-12 col-md-4>
+						  	 <p><button color="light" [disabled]="loading" ion-button block (click)="resetar()">Resetar</button></p>
+			  			</ion-col>
+			  		</ion-row>
+			  	</ion-grid>
+				  	 	  	
+				<br>
+				<br>
+				
+					
+				  <ion-item>
+				    <ion-label >Velocidade</ion-label>
+				    
+		        		<ion-range [(ngModel)]="_velocidade"  (ngModelChange)="alterarVelocidade()" min="0" max="100"></ion-range>
+						   
+				  </ion-item>
+ 
+  
+			  </div>
+			
+			</div>
+			
+			
+			
+	    </ion-col>
+	    
+	    <ion-col #containerTabuleiro col-12 col-md-6>
+	    	
+			<div class="tabuleiro">
+	    
+			    <tabuleiro [solucaoExecutadaHandler]="solucaoExecutadaHandler"  [velocidade]="velocidade" #tabuleiro [loading]="loading" [tamanho]="tamanhoTabuleiro"></tabuleiro>
+			</div>
+			    
+	    </ion-col>
+	    
+	  </ion-row>
+	</ion-grid>
+	
+    
+</ion-content>
